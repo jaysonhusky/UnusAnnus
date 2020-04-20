@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+    <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>.</title>
+        <style>*{padding:0;margin:0;background:black;color:white;font-family: arial;font-size:100px;}.center{width:500px;height:300px;position: absolute;left:50%;top:50%;margin-left:-250px;margin-top:-150px;}</style>
+    </head>
+    <body>
+        <p id="unus" class="center"></p>
+        <script>
+			var context = new AudioContext,
+			o = null,
+			g = null;
+
+			function tick(e, t) {
+				o = context.createOscillator(), g = context.createGain(), o.connect(g), o.type = e, g.connect(context.destination), o.start(0), g.gain.exponentialRampToValueAtTime(1e-5, context.currentTime + t)
+			}
+
+			var c = new Date("Nov 13, 2020 18:00:00").getTime(),
+			x = setInterval(function() {
+				var e = (new Date).getTime(),
+				t = c - e,	
+				n = Math.floor(t / 864e5),
+				o = Math.floor(t % 864e5 / 36e5),
+				a = Math.floor(t % 36e5 / 6e4),
+				i = Math.floor(t % 6e4 / 1e3);
+					n = n < 10 ? "0" + n : n, a = a < 10 ? "0" + a : a, o = o < 10 ? "0" + o : o, i = i < 10 ? "0" + i : i, tick("sine", .08), document.getElementById("unus").innerHTML = n + ":" + o + ":" + a + ":" + i, t < 0 && (clearInterval(x), document.getElementById("unus").innerHTML = "EXPIRED")
+    }, 1e3);
+		</script>
+	</body>
+</html>
